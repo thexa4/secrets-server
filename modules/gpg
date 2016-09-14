@@ -1,0 +1,32 @@
+#!/bin/bash
+set -e
+
+hostname="$1"
+
+pubring=/tmp/gpg-$hostname.pub
+secring=/tmp/gpg-$hostname.sec
+
+rm $pubring $secring 2> /dev/null || true
+
+
+gpg2 --no-options --no-random-seed-file --no-default-keyring --secret-keyring $secring --keyring $pubring --gen-key --batch 2>/dev/null <<HEREDOC
+
+Key-Type: default
+Key-Length: 3072
+Subkey-Type: default
+Subkey-Length: 3072
+Name-Real: $hostname
+Name-Comment: duplicity
+Name-Email: root@$hostname
+Expire-Date: 0
+Passphrase: $hostname
+
+%pubring /tmp/gpg-$hostname.pub
+%secring /tmp/gpg-$hostname.sec
+%commit
+HEREDOC
+
+gpg --no-options --no-random-seed-file --no-default-keyring --secret-keyring $secring --keyring $pubring --export --output -
+gpg --no-options --no-random-seed-file --no-default-keyring --secret-keyring $secring --keyring $pubring --export-secret-key --output -
+
+rm $pubring $secring 2> /dev/null || true
