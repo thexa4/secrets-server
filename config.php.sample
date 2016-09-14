@@ -1,0 +1,14 @@
+<?php
+$config = [];
+$config['base'] = dirname(__FILE__);
+
+// Start editable
+
+$config['module_dir'] = $config['base'] . "/modules";
+$config['data_dir'] = $config['base'] . "/data";
+
+$config["modules_available"] = [
+	"gpg",
+];
+
+// End editable
