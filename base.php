@@ -92,7 +92,8 @@ function createData($module, $clientcn, $destination) {
 		die("Unable to generate secret");
 	}
 
-	file_put_contents($destination, $data) || (http_response_code(500) && die("Unable to save secret"));
+	$reconstructed = implode(PHP_EOL, $data);
+	file_put_contents($destination, $reconstructed) || (http_response_code(500) && die("Unable to save secret"));
 }
 
 function getModule($module) {

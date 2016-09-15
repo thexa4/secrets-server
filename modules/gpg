@@ -26,7 +26,7 @@ Passphrase: $hostname
 %commit
 HEREDOC
 
-gpg --no-options --no-random-seed-file --no-default-keyring --secret-keyring $secring --keyring $pubring --export --output -
-gpg --no-options --no-random-seed-file --no-default-keyring --secret-keyring $secring --keyring $pubring --export-secret-key --output -
+gpg --no-options --no-random-seed-file --no-default-keyring --secret-keyring $secring --keyring $pubring --export --armor --output -
+gpg --no-options --no-random-seed-file --no-default-keyring --secret-keyring $secring --keyring $pubring --export-secret-key --armor --output -
 
 rm $pubring $secring 2> /dev/null || true
